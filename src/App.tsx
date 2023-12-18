@@ -1,7 +1,14 @@
+import React from 'react';
 import './App.scss';
 
 function App() {
-  const handleSubmit = (event) => {
+  const [reviewText, setReviewText] = React.useState('');
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setReviewText(event.target.value);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('🚀 ~ file: App.tsx:5 ~ handleSubmit ~ event:', event);
     // Here you can call an API to submit your form
@@ -16,7 +23,13 @@ function App() {
           <label htmlFor="review-text-input" className="form-label">
             Text:
           </label>
-          <textarea className="form-control" id="review-text-input" rows={3} />
+          <textarea
+            className="form-control"
+            id="review-text-input"
+            rows={3}
+            value={reviewText}
+            onChange={handleChange}
+          />
         </div>
         <input className="btn btn-primary" type="submit" value="Submit" />
       </form>
