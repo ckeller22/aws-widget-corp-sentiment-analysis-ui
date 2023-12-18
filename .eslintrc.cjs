@@ -20,6 +20,14 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     'comma-dangle': 'off',
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
     '@typescript-eslint/comma-dangle': ['error', 'only-multiline'],
     'arrow-body-style': ['error', 'always'],
     // Default props in functional components will be deprecated "eventually"
@@ -33,4 +41,4 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
-}
+};
