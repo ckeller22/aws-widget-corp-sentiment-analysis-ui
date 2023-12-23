@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
+import HttpService from './services/HttpService';
 
 function App() {
   const [reviewText, setReviewText] = useState('');
@@ -8,9 +9,14 @@ function App() {
     setReviewText(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('🚀 ~ file: App.tsx:5 ~ handleSubmit ~ event:', event);
+
+    try {
+      await HttpService.post('/predict', { reviewText });
+    } catch (error) {
+      console.log(error);
+    }
     // Here you can call an API to submit your form
   };
 
