@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 import HttpService from './services/HttpService';
+import { PredictionRequest } from './models/PredictionRequest';
 
 function App() {
   const [reviewText, setReviewText] = useState('');
@@ -12,8 +13,13 @@ function App() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const input = reviewText;
+    const requestBody: PredictionRequest = {
+      input,
+    };
+
     try {
-      await HttpService.post('/predict', { reviewText });
+      await HttpService.post('/predict', requestBody);
     } catch (error) {
       console.log(error);
     }
@@ -25,8 +31,8 @@ function App() {
       <form onSubmit={handleSubmit} className="mb-3">
         <h2>Sentiment Analysis</h2>
         <p>
-          Enter text below to analyze and determine sentiment, either positive
-          or negative.
+          Enter text below to analyze and determine the overall sentiment of a
+          review, either positive or negative.
         </p>
         <div className="mb-3">
           <label htmlFor="review-text-input" className="form-label">
